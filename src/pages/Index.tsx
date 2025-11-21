@@ -274,7 +274,7 @@ const Index = () => {
             <Button variant="ghost" size="sm">[4]</Button>
             <Button variant="ghost" size="sm">[5]</Button>
             <span className="px-2">...</span>
-            <Button variant="ghost" size="sm">[Следующая >]</Button>
+            <Button variant="ghost" size="sm">[Следующая &gt;]</Button>
           </div>
         </CardContent>
       </Card>
