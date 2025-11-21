@@ -9,8 +9,11 @@ import Icon from '@/components/ui/icon';
 type UserRole = 'guest' | 'reader' | 'librarian' | 'admin';
 
 const Index = () => {
-  const [currentPage, setCurrentPage] = useState<'home' | 'catalog' | 'cabinet' | 'admin'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'catalog' | 'cabinet' | 'admin' | 'login'>('home');
   const [userRole, setUserRole] = useState<UserRole>('guest');
+  const [catalogMenu, setCatalogMenu] = useState<string>('electronic');
+  const [cabinetMenu, setCabinetMenu] = useState<string>('mybooks');
+  const [loginData, setLoginData] = useState({ login: '', password: '' });
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState({
     available: false,
@@ -65,7 +68,7 @@ const Index = () => {
             )}
             {userRole === 'guest' && (
               <div className="flex gap-2">
-                <Button variant="ghost" size="sm" onClick={() => setUserRole('librarian')} className="text-white hover:bg-gray-700">
+                <Button variant="ghost" size="sm" onClick={() => setCurrentPage('login')} className="text-white hover:bg-gray-700">
                   Войти
                 </Button>
                 <Button variant="ghost" size="sm" className="text-white hover:bg-gray-700">
@@ -201,6 +204,57 @@ const Index = () => {
 
   const renderCatalogPage = () => (
     <div className="container mx-auto px-4 py-8">
+      <div className="flex gap-6">
+        <aside className="w-64 flex-shrink-0">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">КАТАЛОГ</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-1">
+              <button
+                onClick={() => setCatalogMenu('electronic')}
+                className={`w-full text-left px-3 py-2 text-sm hover:text-[#0EA5E9] transition-colors ${
+                  catalogMenu === 'electronic' ? 'text-[#0EA5E9] font-medium' : 'text-gray-700'
+                }`}
+              >
+                — Электронный каталог
+              </button>
+              <button
+                onClick={() => setCatalogMenu('new')}
+                className={`w-full text-left px-3 py-2 text-sm hover:text-[#0EA5E9] transition-colors ${
+                  catalogMenu === 'new' ? 'text-[#0EA5E9] font-medium' : 'text-gray-700'
+                }`}
+              >
+                — Новые поступления
+              </button>
+              <button
+                onClick={() => setCatalogMenu('recommended')}
+                className={`w-full text-left px-3 py-2 text-sm hover:text-[#0EA5E9] transition-colors ${
+                  catalogMenu === 'recommended' ? 'text-[#0EA5E9] font-medium' : 'text-gray-700'
+                }`}
+              >
+                — Рекомендуемая литература
+              </button>
+              <button
+                onClick={() => setCatalogMenu('topics')}
+                className={`w-full text-left px-3 py-2 text-sm hover:text-[#0EA5E9] transition-colors ${
+                  catalogMenu === 'topics' ? 'text-[#0EA5E9] font-medium' : 'text-gray-700'
+                }`}
+              >
+                — По тематикам
+              </button>
+              <button
+                onClick={() => setCatalogMenu('authors')}
+                className={`w-full text-left px-3 py-2 text-sm hover:text-[#0EA5E9] transition-colors ${
+                  catalogMenu === 'authors' ? 'text-[#0EA5E9] font-medium' : 'text-gray-700'
+                }`}
+              >
+                — По авторам
+              </button>
+            </CardContent>
+          </Card>
+        </aside>
+        <div className="flex-1">
       <div className="mb-6">
         <h1 className="text-2xl font-medium mb-4">Поиск по каталогу:</h1>
         <div className="flex gap-2 mb-6">
@@ -278,10 +332,64 @@ const Index = () => {
           </div>
         </CardContent>
       </Card>
+        </div>
+      </div>
     </div>
   );
 
   const renderLibrarianCabinet = () => (
+    <div className="container mx-auto px-4 py-8">
+      <div className="flex gap-6">
+        <aside className="w-64 flex-shrink-0">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Личный кабинет</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-1">
+              <button
+                onClick={() => setCabinetMenu('mybooks')}
+                className={`w-full text-left px-3 py-2 text-sm hover:text-[#0EA5E9] transition-colors ${
+                  cabinetMenu === 'mybooks' ? 'text-[#0EA5E9] font-medium' : 'text-gray-700'
+                }`}
+              >
+                — Мои книги
+              </button>
+              <button
+                onClick={() => setCabinetMenu('history')}
+                className={`w-full text-left px-3 py-2 text-sm hover:text-[#0EA5E9] transition-colors ${
+                  cabinetMenu === 'history' ? 'text-[#0EA5E9] font-medium' : 'text-gray-700'
+                }`}
+              >
+                — История операций
+              </button>
+              <button
+                onClick={() => setCabinetMenu('reservations')}
+                className={`w-full text-left px-3 py-2 text-sm hover:text-[#0EA5E9] transition-colors ${
+                  cabinetMenu === 'reservations' ? 'text-[#0EA5E9] font-medium' : 'text-gray-700'
+                }`}
+              >
+                — Бронирования
+              </button>
+              <button
+                onClick={() => setCabinetMenu('notifications')}
+                className={`w-full text-left px-3 py-2 text-sm hover:text-[#0EA5E9] transition-colors ${
+                  cabinetMenu === 'notifications' ? 'text-[#0EA5E9] font-medium' : 'text-gray-700'
+                }`}
+              >
+                — Уведомления
+              </button>
+              <button
+                onClick={() => setCabinetMenu('settings')}
+                className={`w-full text-left px-3 py-2 text-sm hover:text-[#0EA5E9] transition-colors ${
+                  cabinetMenu === 'settings' ? 'text-[#0EA5E9] font-medium' : 'text-gray-700'
+                }`}
+              >
+                — Настройки
+              </button>
+            </CardContent>
+          </Card>
+        </aside>
+        <div className="flex-1">
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
         <h1 className="text-2xl font-medium mb-1">Система "Золотой рассвет" - Библиотекарь</h1>
@@ -362,6 +470,101 @@ const Index = () => {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </CardContent>
+      </Card>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderLoginPage = () => (
+    <div className="min-h-[calc(100vh-120px)] flex items-center justify-center py-12">
+      <Card className="w-full max-w-md">
+        <CardHeader className="text-center">
+          <CardTitle className="text-xl mb-4">ВХОД В СИСТЕМУ</CardTitle>
+          <div className="flex items-center justify-center gap-2 text-base">
+            <Icon name="BookOpen" size={24} className="text-[#0EA5E9]" />
+            <span className="font-medium">БИБЛИОТЕКА «БИБЛИОСФЕРА»</span>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="border-2 border-[#0EA5E9] rounded-lg p-6">
+            <h3 className="text-center font-medium mb-6">АВТОРИЗАЦИЯ</h3>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm mb-2">
+                  Логин:
+                </label>
+                <Input
+                  value={loginData.login}
+                  onChange={(e) => setLoginData({ ...loginData, login: e.target.value })}
+                  className="w-full"
+                />
+              </div>
+              <div>
+                <label className="block text-sm mb-2">
+                  Пароль:
+                </label>
+                <Input
+                  type="password"
+                  value={loginData.password}
+                  onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
+                  className="w-full"
+                />
+              </div>
+              <div className="text-center">
+                <button className="text-sm text-[#0EA5E9] hover:underline">
+                  [ Забыли пароль? ]
+                </button>
+              </div>
+              <div className="flex justify-center pt-2">
+                <Button
+                  className="bg-[#0EA5E9] hover:bg-[#0EA5E9]/90 px-8"
+                  onClick={() => {
+                    setUserRole('librarian');
+                    setCurrentPage('cabinet');
+                  }}
+                >
+                  <Icon name="Check" size={16} className="mr-2" />
+                  ВОЙТИ В СИСТЕМУ
+                </Button>
+              </div>
+              <div className="text-center text-sm text-gray-600 pt-4">
+                Или войти как:
+                <div className="flex justify-center gap-4 mt-2">
+                  <button
+                    onClick={() => {
+                      setUserRole('reader');
+                      setCurrentPage('cabinet');
+                    }}
+                    className="text-[#0EA5E9] hover:underline"
+                  >
+                    [ Читатель ]
+                  </button>
+                  <button className="text-[#0EA5E9] hover:underline">
+                    [ Библиотекарь ]
+                  </button>
+                  <button
+                    onClick={() => {
+                      setUserRole('admin');
+                      setCurrentPage('admin');
+                    }}
+                    className="text-[#0EA5E9] hover:underline"
+                  >
+                    [ Админ ]
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="text-center mt-6">
+            <button
+              onClick={() => setCurrentPage('home')}
+              className="text-sm text-gray-600 hover:text-[#0EA5E9]"
+            >
+              [ &lt; Вернуться на главную ]
+            </button>
           </div>
         </CardContent>
       </Card>
@@ -449,6 +652,7 @@ const Index = () => {
       {currentPage === 'catalog' && renderCatalogPage()}
       {currentPage === 'cabinet' && renderLibrarianCabinet()}
       {currentPage === 'admin' && renderAdminPanel()}
+      {currentPage === 'login' && renderLoginPage()}
 
       {userRole === 'guest' && currentPage === 'home' && (
         <div className="fixed bottom-8 right-8">
