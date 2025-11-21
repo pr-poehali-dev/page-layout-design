@@ -478,7 +478,8 @@ const Index = () => {
     </div>
   );
 
-  const renderLoginPage = () => (
+  const renderLoginPage = () => {
+    return (
     <div className="min-h-[calc(100vh-120px)] flex items-center justify-center py-12">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
@@ -569,7 +570,8 @@ const Index = () => {
         </CardContent>
       </Card>
     </div>
-  );
+    );
+  };
 
   const renderAdminPanel = () => (
     <div className="container mx-auto px-4 py-8">
